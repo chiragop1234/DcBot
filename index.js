@@ -1,9 +1,11 @@
 const Discord = require('discord.js');
+const { Intents } = require('discord.js');
 const client = new Discord.Client({
   intents: [
-    Discord.Intents.FLAGS.GUILDS,
-    Discord.Intents.FLAGS.GUILD_MESSAGES,
-    // Add any other intents your bot needs
+    Intents.FLAGS.GUILDS,                // Required for server-related events
+    Intents.FLAGS.GUILD_MESSAGES,        // Required for message-related events
+    Intents.FLAGS.GUILD_MEMBERS,         // Required if you need member events
+    // Add more intents as needed
   ],
 });
 const { handleMoneyCommands } = require('./money');
