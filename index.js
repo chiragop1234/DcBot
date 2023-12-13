@@ -1,53 +1,31 @@
 const Discord = require('discord.js');
-const { Intents } = require('discord.js');
-const client = new Discord.Client({
-  intents: [
-    Intents.FLAGS.GUILDS,
-    Intents.FLAGS.GUILD_MESSAGES,
-    Intents.FLAGS.GUILD_MEMBERS,
-    Intents.FLAGS.GUILD_PRESENCES,
-    Intents.FLAGS.GUILD_VOICE_STATES,
-    Intents.FLAGS.MESSAGE_CONTENT,
-    Intents.FLAGS.MESSAGE_REACTIONS,
-    Intents.FLAGS.MESSAGE_TYPING,
-    Intents.FLAGS.DIRECT_MESSAGES,
-  ],
-});
-const { handleMoneyCommands } = require('./money');
-
+const client = new Discord.Client();
 const prefix = '$';
-const token = process.env.DISCORD_BOT_TOKEN;
 
-client.once('ready', () => {
-  console.log(`Logged in as ${client.user.tag}`);
-  setBotPresence();
+client.on('ready', () => {
+  console.log(`Logged in as ${client.user.tag}!`);
 });
 
-client.on('messageCreate', (message) => {
+client.on('message', (message) => {
+  // Ignore messages from the bot itself
   if (message.author.bot) return;
 
-  const args = message.content.slice(prefix.length).trim().split(/ +/);
-  const command = args.shift().toLowerCase();
+  // Check if the message starts with the specified prefix
+  if (message.content.startsWith(prefix)) {
+    // Split the message into command and arguments
+    const args = message.content.slice(prefix.length).split(' ');
+    const command = args.shift().toLowerCase();
 
-  if (command === 'hi') {
-    message.reply('Hello!');
-  } else if (command === 'ping') {
-    message.channel.send('Pong!');
-  } else {
-    handleMoneyCommands(message, args);
+    // Handle different commands
+    if (command === 'help') {
+      // Respond with a simple help message
+      message.reply('This is a simple bot. You can use `$help` for help.');
+    } else {
+      // Handle unknown command
+      message.reply('Unknown command. Use `$help` for help.');
+    }
   }
 });
 
-client.login(token);
-
-function setBotPresence() {
-  client.user.setPresence({
-    activities: [
-      {
-        name: 'Managing Bytes 💸',
-        type: 'PLAYING',
-      },
-    ],
-    status: 'online',
-  });
-}
+// Log in to Discord with the bot token from the environment variable
+client.login(process.env.BOT_TOKEN);
