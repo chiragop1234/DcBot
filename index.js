@@ -1,7 +1,8 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
 
-const token = 'MTE4MDEwNTU5Nzg3NDYxMDIwNg.G8d5pI.huF8GzmvkBWMuwOnFuKJDNWU5rpqC6esUBDhjI';
+// Retrieve the bot token from the environment variable
+const token = process.env.DISCORD_BOT_TOKEN;
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}`);
@@ -17,4 +18,5 @@ client.on('message', (message) => {
   }
 });
 
+// Log in with the retrieved token
 client.login(token);
