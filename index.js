@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
-const { handleMoneyCommands, handleHelpCommand } = require('./money');
+const { handleMoneyCommands } = require('./money');
 
 const token = process.env.DISCORD_BOT_TOKEN;
 
@@ -15,8 +15,10 @@ client.on('messageCreate', (message) => {
   const args = message.content.slice(prefix.length).trim().split(/ +/);
   const command = args.shift().toLowerCase();
 
-  if (command === 'help') {
-    handleHelpCommand(message);
+  if (command === 'hi') {
+    message.reply('Hello!');
+  } else if (command === 'ping') {
+    message.channel.send('Pong!');
   } else {
     handleMoneyCommands(message, args);
   }
