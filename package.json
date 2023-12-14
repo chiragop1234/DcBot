@@ -1,12 +1,17 @@
 {
-  "name": "discord-bot",
+  "name": "discord-bot-example",
   "version": "1.0.0",
-  "description": "A simple Discord bot",
+  "description": "A simple Discord bot example",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "dev": "nodemon index.js"
   },
+  "keywords": ["discord", "bot", "nodejs"],
   "dependencies": {
-    "discord.js": "^13.3.1"
+    "discord.js": "^14.7.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.20.1"
   }
 }
