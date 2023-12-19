@@ -1,14 +1,15 @@
-# Use the official Node.js image
-FROM node:14
+FROM node:latest
 
-# Set the working directory in the container
-WORKDIR /usr/src/app
+# Create the directory!
+RUN mkdir -p /usr/src/bot
+WORKDIR /usr/src/bot
 
-# Copy package.json and package-lock.json to the working directory
-COPY package*.json ./
+# Copy and Install our bot
+COPY package.json /usr/src/bot
+RUN npm install
 
-# Copy the application code to the container
-COPY . .
+# Our precious bot
+COPY . /usr/src/bot
 
-# Specify the command to run your application
+# Start me!
 CMD ["node", "index.js"]
